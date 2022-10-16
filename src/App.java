@@ -6,7 +6,7 @@ public class App {
     
     public static void main(String[] args) throws Exception {
 
-        Account[] accounts = constructAccounts(getStringFromFile("src/data.txt"),10);
+        Account[] accounts = constructAccounts(getStringFromFile("src/data.txt"));
         for(Account account: accounts){
 
             System.out.println(account.getInfoString());
@@ -14,10 +14,11 @@ public class App {
         }
     }
 
-    public static Account[] constructAccounts(String constructionString, int size){
-        Account[] myAccounts = new Account[size];
+    public static Account[] constructAccounts(String constructionString){
+        
         int accountsIndex = 0;
         char objectDelimiter = '%';
+        Account[] myAccounts = new Account[findNumberOfObjects(constructionString, objectDelimiter)];
         String constructor = "";
         try{
         for (int i = 0; i < constructionString.length(); i++) {
@@ -57,6 +58,20 @@ public class App {
             System.exit(1);
             return null;
         }
+    }
+
+    private static int findNumberOfObjects(String fromFile, char objectDelimiter){
+        
+        int result = 0;
+        for(int i = 0; i < fromFile.length(); i++){
+
+            if(fromFile.charAt(i) == objectDelimiter){
+                result ++;
+            }
+
+        }
+
+        return result;
     }
 
     

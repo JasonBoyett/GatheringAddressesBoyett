@@ -25,8 +25,9 @@ public class Account implements Serializable{
     public Account(String constructor){
 
         parseConstructorString(this, constructor);
+        String nameIDAndComment = "Account ID : " + this.id + "\n" +"Name: "+ this.name + "\n" + ASK_FOR_COMMENT;
         this.timeCreated = LocalDateTime.now();
-        this.comment = JOptionPane.showInputDialog(null, "Account ID :" + this.id + "\n" + ASK_FOR_COMMENT);
+        this.comment = JOptionPane.showInputDialog(null, nameIDAndComment);
         if(this.comment.equals(null) || this.comment.equals("")){
             this.comment = "No comment added.";
         }
