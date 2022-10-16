@@ -6,21 +6,22 @@ public class App {
     
     public static void main(String[] args) throws Exception {
 
-        Account[] accounts = constructAccounts(getStringFromFile("data.txt"),10);
-        //Account[] accounts = constructAccounts(test, 10);
+        Account[] accounts = constructAccounts(getStringFromFile("src/data.txt"),10);
         for(Account account: accounts){
+
             System.out.println(account.getInfoString());
+
         }
     }
 
     public static Account[] constructAccounts(String constructionString, int size){
         Account[] myAccounts = new Account[size];
         int accountsIndex = 0;
-        char delimiter = '%';
+        char objectDelimiter = '%';
         String constructor = "";
         try{
         for (int i = 0; i < constructionString.length(); i++) {
-            if(constructionString.charAt(i) != delimiter){
+            if(constructionString.charAt(i) != objectDelimiter){
                 constructor += constructionString.charAt(i);
             }
             else{
@@ -38,7 +39,7 @@ public class App {
 
     }
 
-    public static String getStringFromFile(String localFileName){
+    public static String getStringFromFile(String localFileName) throws Exception{
         try{
             String result = "";
             File file = new File(localFileName);
