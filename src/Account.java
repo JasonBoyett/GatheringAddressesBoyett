@@ -30,7 +30,8 @@ public class Account implements Serializable{
 
     public Account(String constructor){//object constructor
 
-        parseConstructorString(this, constructor);//this function parses the constructor string into the data fields of the constructed object
+        //parseConstructorString(this, constructor);//this function parses the constructor string into the data fields of the constructed object
+        parseConstructorString(constructor,this);
         String nameIDAndComment = "Account ID : " + this.id + "\n" +"Name: "+ this.name + "\n" + ASK_FOR_COMMENT;
         this.timeCreated = LocalDateTime.now();//shows the time the object was created
         this.comment = JOptionPane.showInputDialog(null, nameIDAndComment);//adds a comment to the account
@@ -50,7 +51,6 @@ public class Account implements Serializable{
         info += "State: " + this.state + "\n";
         info += "City: " + this.city + "\n";
         info += "Zip: " + this.zipCode + "\n";
-        info += "Phone: " + this.phone + "\n";
         info += "Best time to contact: " + this.timeToContact + "\n";
         info += String.format("Balance: $%,.2f \n", (((double)this.balance)/100));
         info += "Comment: " + this.comment + "\n";
@@ -59,80 +59,32 @@ public class Account implements Serializable{
         return info;
     }
 
-    private void parseConstructorString(Account account, String constructor){//parses the constructor string into the object attributes
+   
 
-        int i = 0;//the current index of the constructor string
-        int stop = 0;//the end point of the last loop ran used to pull a substring from the constructor string
+    public void parseConstructorString(String constructor, Account account){
+        String[] attributes = new String[9];
+        int startIndex = 0;
         char attributeDelimiter = '$';
 
-        while(constructor.charAt(i) != attributeDelimiter){//runs till the object delimiter is reached and sets the the attribute to the substring between the precious end point and the current position
-
-            account.id = constructor.substring(stop,i+1);
-            i++;
-
+        for(int i = 0; i < attributes.length; i++){
+            for(int j = startIndex; j < constructor.length(); j++){
+                if(constructor.charAt(j) == attributeDelimiter) {
+                    attributes[i] = constructor.substring(startIndex,j);
+                    startIndex = j + 1;
+                    break;
+                }
+            }
         }
-        i++;//increments the current position
-        stop = i;//sets the previous end position
-        while(constructor.charAt(i) != attributeDelimiter){
 
-            account.name = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.address = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.state = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.city = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.zipCode = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.phone = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-
-            account.timeToContact = constructor.substring(stop,i+1);
-            i++;
-
-        }
-        i++;
-        stop = i;
-        while(constructor.charAt(i) != attributeDelimiter){
-            account.balance = (Integer.valueOf(constructor.substring(stop,i+1)));
-            i++;
-        }
+        account.id = attributes[0];
+        account.name = attributes[1];
+        account.address = attributes[2];
+        account.state = attributes[3];
+        account.city = attributes[4];
+        account.zipCode = attributes[5];
+        account.phone = attributes[6];
+        account.timeToContact = attributes[7];
+        account.balance = Integer.parseInt(attributes[8]);
 
     }
 
