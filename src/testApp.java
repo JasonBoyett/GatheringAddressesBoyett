@@ -1,3 +1,9 @@
+/*
+ * Jason Boyett - jaboye2448
+ * CIT 4423 01
+ * Oct 16, 2022
+ * mac OS 12
+ */
 import static org.junit.Assert.*;
 
 import org.junit.Test;

@@ -1,3 +1,9 @@
+/*
+ * Jason Boyett - jaboye2448
+ * CIT 4423 01
+ * Oct 16, 2022
+ * mac OS 12
+ */
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,20 +28,20 @@ public class Account implements Serializable{
     LocalDateTime timeCreated;
     int balance = 0;//saved as an integer value of cents
 
-    public Account(String constructor){
+    public Account(String constructor){//object constructor
 
-        parseConstructorString(this, constructor);
+        parseConstructorString(this, constructor);//this function parses the constructor string into the data fields of the constructed object
         String nameIDAndComment = "Account ID : " + this.id + "\n" +"Name: "+ this.name + "\n" + ASK_FOR_COMMENT;
-        this.timeCreated = LocalDateTime.now();
-        this.comment = JOptionPane.showInputDialog(null, nameIDAndComment);
-        if(this.comment.equals(null) || this.comment.equals("")){
+        this.timeCreated = LocalDateTime.now();//shows the time the object was created
+        this.comment = JOptionPane.showInputDialog(null, nameIDAndComment);//adds a comment to the account
+        if(this.comment.equals(null) || this.comment.equals("")){//if the user doesn't add a comment the comment will be "no comment added"
             this.comment = "No comment added.";
         }
-        serializeAccount();
+        serializeAccount();//account object is serialized
 
     }
 
-    public String getInfoString(){
+    public String getInfoString(){//returns the attributes of the object in a string
 
         String info = "Id: " + this.id + "\n";
         info += "Name: " + this.name + "\n";
@@ -53,20 +59,20 @@ public class Account implements Serializable{
         return info;
     }
 
-    private void parseConstructorString(Account account, String constructor){
+    private void parseConstructorString(Account account, String constructor){//parses the constructor string into the object attributes
 
-        int i = 0;
-        int stop = 0;
+        int i = 0;//the current index of the constructor string
+        int stop = 0;//the end point of the last loop ran used to pull a substring from the constructor string
         char attributeDelimiter = '$';
 
-        while(constructor.charAt(i) != attributeDelimiter){
+        while(constructor.charAt(i) != attributeDelimiter){//runs till the object delimiter is reached and sets the the attribute to the substring between the precious end point and the current position
 
             account.id = constructor.substring(stop,i+1);
             i++;
 
         }
-        i++;
-        stop = i;
+        i++;//increments the current position
+        stop = i;//sets the previous end position
         while(constructor.charAt(i) != attributeDelimiter){
 
             account.name = constructor.substring(stop,i+1);
@@ -130,7 +136,7 @@ public class Account implements Serializable{
 
     }
 
-    private void serializeAccount(){
+    private void serializeAccount(){//stores the account in a persistent file
         try {
 
             FileOutputStream fileOut = new FileOutputStream("stored_accounts.cer");
