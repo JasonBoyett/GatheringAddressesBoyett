@@ -30,8 +30,8 @@ public class Account implements Serializable{
 
     public Account(String constructor){//object constructor
 
-        //parseConstructorString(this, constructor);//this function parses the constructor string into the data fields of the constructed object
-        parseConstructorString(constructor,this);
+
+        parseConstructorString(constructor,this);//this function parses the constructor string into the data fields of the constructed object
         String nameIDAndComment = "Account ID : " + this.id + "\n" +"Name: "+ this.name + "\n" + ASK_FOR_COMMENT;
         this.timeCreated = LocalDateTime.now();//shows the time the object was created
         this.comment = JOptionPane.showInputDialog(null, nameIDAndComment);//adds a comment to the account
